@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String email = emailController.text.trim();
     String password = passwordController.text;
 
-    // Retrieve stored email from SharedPreferences
+    // Retrieve stored credentials from SharedPreferences
     String? storedEmail = prefs.getString('email_$email');
     String? storedPassword = prefs.getString('password_$email');
 
@@ -46,7 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } else {
       // Show error message or handle invalid login
-      print('Invalid Credentials');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Invalid Credentials'),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 
@@ -56,37 +59,43 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            CustomTextField(
-              controller: emailController,
-              labelText: 'Email',
-              keyboardType: TextInputType.emailAddress,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CustomTextField(
+                  controller: emailController,
+                  labelText: 'Email',
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                SizedBox(height: 16.0),
+                CustomTextField(
+                  controller: passwordController,
+                  labelText: 'Password',
+                  obscureText: true,
+                ),
+                SizedBox(height: 32.0),
+                ElevatedButton(
+                  onPressed: _login,
+                  child: Text('Login'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignUpScreen()));
+                  },
+                  child: Text('Sign Up'),
+                ),
+              ],
             ),
-            SizedBox(height: 16.0),
-            CustomTextField(
-              controller: passwordController,
-              labelText: 'Password',
-              obscureText: true,
-            ),
-            SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: _login,
-              child: Text('Login'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignUpScreen()));
-              },
-              child: Text('Sign Up'),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
