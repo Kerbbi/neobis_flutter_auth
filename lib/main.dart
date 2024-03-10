@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_auth/presentation/screens/login_screen.dart';
 
-void main() {
+import 'data/shared_preferences_service.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesService.init(); // Initialize SharedPreferencesService
   runApp(Application());
 }
 

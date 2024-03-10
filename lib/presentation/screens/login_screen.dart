@@ -30,13 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
     String password = passwordController.text;
 
     // Retrieve stored credentials from SharedPreferences
-    String? storedEmail = prefs.getString('email_$email');
-    String? storedPassword = prefs.getString('password_$email');
+    String? storedEmail = prefs.getString('email');
+    String? storedPassword = prefs.getString('password');
 
-    if (storedEmail != null &&
-        storedPassword != null &&
-        email == storedEmail &&
-        password == storedPassword) {
+    if (email == storedEmail && password == storedPassword) {
       // Navigate to home screen after successful login
       Navigator.pushReplacement(
         context,
@@ -46,10 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     } else {
       // Show error message or handle invalid login
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Invalid Credentials'),
-        backgroundColor: Colors.red,
-      ));
+      print('Invalid Credentials');
     }
   }
 

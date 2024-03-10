@@ -6,7 +6,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final String? Function(String?)? validator;
-  final String? errorMessage; // New parameter for displaying error message
+  final String? errorMessage;
 
   const CustomTextField({
     Key? key,
@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.validator,
-    this.errorMessage, // Include error message in constructor
+    this.errorMessage,
   }) : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
           decoration: InputDecoration(
             labelText: labelText,
             border: const OutlineInputBorder(),
-            errorText: errorMessage, // Display error message
+            errorText: errorMessage,
           ),
           validator: validator,
         ),

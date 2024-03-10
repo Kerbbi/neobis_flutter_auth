@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       bool userExists = userList.contains(email);
       if (userExists) {
         // If user already exists, show error message
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        var showSnackBar = ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: const Text('User with this email already exists. '
               'Please use a different email.'),
           backgroundColor: Colors.red,
@@ -97,9 +97,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           .hasMatch(value)) {
                         return 'Please enter a valid email';
                       }
-                      if (prefs.getString('email_$value') != null) {
+                      if (prefs.getString('email') == value) {
                         // Check if email already exists
-                        return 'User with this email already exists. Please use a different email.';
+                        return 'User with this email already exists.'
+                            ' Please use a different email.';
                       }
                       return null;
                     },
